@@ -1,0 +1,14 @@
+import pandas as pd
+
+# Load datasets
+movies = pd.read_csv('movies.csv')
+ratings = pd.read_csv('ratings.csv')
+
+# Merge datasets
+data = pd.merge(ratings, movies, on='movieId')
+
+# Create a pivot table
+user_movie_matrix = data.pivot_table(index='userId', columns='title', values='rating')
+
+# Fill NaN values with 0
+user_movie_matrix.fillna(0, inplace=True)

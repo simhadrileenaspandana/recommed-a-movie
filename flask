@@ -1,0 +1,12 @@
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route('/recommend', methods=['GET'])
+def recommend():
+    user_id = int(request.args.get('user_id'))
+    recommendations = recommend_movies(user_id)
+    return jsonify({'recommended_movies': recommendations.tolist()})
+
+if __name__ == '__main__':
+    app.run(debug=True)

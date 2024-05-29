@@ -1,0 +1,11 @@
+from sklearn.neighbors import NearestNeighbors
+
+# Fit the model
+model_knn = NearestNeighbors(metric='cosine', algorithm='brute')
+model_knn.fit(user_movie_matrix.values)
+
+def recommend_movies(user_index, n_neighbors=6):
+    distances, indices = model_knn.kneighbors(user_movie_matrix.iloc[user_index, :].values.reshape(1, -1), n_neighbors=n_neighbors)
+    recommended_indices = indices.flatten()
+    recommended_movies = user_movie_matrix.index[recommended_indices]
+    return recommended_movies
